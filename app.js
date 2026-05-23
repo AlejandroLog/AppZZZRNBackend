@@ -1,17 +1,30 @@
-require('dotenv').config(); // Esta línea debe ir hasta arriba
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
-const books = require('./routes/books');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Middlewares
 app.use(cors());
-app.use(bodyParser.json());
-app.use('/api/books', books);
+app.use(express.json()); 
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('Connected to MongoDB Atlas'))
-.catch(err => console.error('Error connecting to MongoDB Atlas:', err));
+// Conexión a MongoDB Atlas
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('🔥 Conexión exitosa a la base de datos MongoDB Atlas (VINIMUSIC)');
+  })
+  .catch((error) => {
+    console.error('❌ Error al conectar a MongoDB:', error);
+  });
 
-app.listen(4000, () => console.log('Server running on port 4000'));
+// Ruta principal de prueba
+app.get('/', (req, res) => {
+    res.send('API de VINIMUSICAPP conectada y escuchando 🎧');
+});
+
+// Levantar el servidor
+app.listen(port, () => {
+    console.log(`🚀 Servidor corriendo en http://localhost:${port}`);
+});
