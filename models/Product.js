@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
     imageUrl: { type: String, required: true },
     description: { type: String }
 }, {
-    timestamps: true // Agrega automáticamente fecha de creación y actualización
+    timestamps: true 
 });
 
 module.exports = mongoose.model('Product', productSchema);
