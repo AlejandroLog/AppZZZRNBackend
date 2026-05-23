@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const productsRouter = require('./routes/productsRouter');
+const usersRouter = require('./routes/usersRouter');
+const ordersRouter = require('./routes/ordersRouter');
+
 const errorHandler = require('./middlewares/errorHandler'); // 1. Importar
 
 const app = express();
@@ -17,6 +20,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch((error) => console.error('❌ Error al conectar a MongoDB:', error));
 
 app.use('/api/products', productsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/orders', ordersRouter);
 
 // 2. Usar el middleware de errores (Siempre debe ir después de las rutas)
 app.use(errorHandler); 
